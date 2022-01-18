@@ -33,13 +33,13 @@ read cmkport
 cmkport="${cmkport:=5000}"
 echo -e "\e[1;32m Your CheckMK server HTTP port has been specified as:\e[1;31m $cmkport\e[0m"
 
-{
+
 wget -r -nH -A .rpm --cut-dirs=2 --no-parent --reject="index.html*" http://$cmkserver:$cmkport/cmk/check_mk/agents/
-cd /agents
+cd agents
 rpm -ivh *.rpm
 cd ..
 rm -f -d -r ./agents/
-} &> /dev/null
+
 
 echo -e "\e[1;32m CheckMK Agent installed Successfully! \e[0m"
 
