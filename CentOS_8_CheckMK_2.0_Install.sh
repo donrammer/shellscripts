@@ -4,7 +4,7 @@
 #                                                    CentOS 8 - Install and Configure CheckMK 2.0 Agent                                               #
 #                                                               Author - Richard Fletcher                                                             #
 #                                                          E-mail: richard@imperviousits.co.uk                                                        #
-#                                                               Version 1.0 - 18/01/2022                                                              #
+#                                                               Version 1.1 - 18/01/2022                                                              #
 #######################################################################################################################################################
 
 #######################################################################################################################################################
@@ -25,8 +25,20 @@ echo -e "\e[1;32m Xinetd installed Successfully! \e[0m"
 
 echo -e "\e[1;34m Downloading and installing CheckMK 2.0 Agent, please wait.... \e[0m"
 
+echo -e "\e[1;36m Please enter the IP of your CheckMK Server:\e[0m"
+read cmkserver
+
+echo -e "\e[1;36m Please enter the http port that your Check MK Server is running on. Press ENTER for the default port of 5000:\e[0m"
+read cmkport
+cmkport="${cmkport:=5000}"
+echo -e "\e[1;32m Your CheckMK server HTTP port has been specified as:\e[1;31m $cmkport\e[0m"
+
 {
-sudo rpm -i http://enterserverip:5000/cmk/check_mk/agents/check-mk-agent-2.0.0p11-1.noarch.rpm
+wget -r -nH -A .rpm --cut-dirs=2 --no-parent --reject="index.html*" http://$cmkserver:$cmkport/cmk/check_mk/agents/
+cd /agents
+rpm -ivh *.rpm
+cd ..
+rm -f -d -r ./agents/
 } &> /dev/null
 
 echo -e "\e[1;32m CheckMK Agent installed Successfully! \e[0m"
