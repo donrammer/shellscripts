@@ -26,7 +26,7 @@ echo -e "\e[1;32m Xinetd installed Successfully! \e[0m"
 echo -e "\e[1;34m Downloading and installing CheckMK 2.0 Agent, please wait.... \e[0m"
 
 {
-yum -y install ./check-mk-agent-2.0.0p9-dcbad23b395f68a9.noarch.rpm
+sudo rpm -i http://enterserverip:5000/cmk/check_mk/agents/check-mk-agent-2.0.0p11-1.noarch.rpm
 } &> /dev/null
 
 echo -e "\e[1;32m CheckMK Agent installed Successfully! \e[0m"
